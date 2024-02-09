@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.form.UpdateEmployeeForm;
 import com.example.model.Employee;
 import com.example.service.EmployeeService;
 
@@ -28,7 +29,17 @@ public class EmployeeController {
     public String showList(Model model) {
         List<Employee> employeeList = employeeService.showList();
         model.addAttribute("employeeList", employeeList);
+
         return "employee/list";
+    }
+
+    @GetMapping("/showDetail")
+    public String showDetail(String id, Model model, UpdateEmployeeForm form) {
+        Integer IntId = Integer.parseInt(id);
+        Employee employee = employeeService.showDetail(IntId);
+        model.addAttribute("employee", employee);
+
+        return "employee/detail";
     }
 
 }
