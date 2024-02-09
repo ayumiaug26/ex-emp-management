@@ -51,9 +51,29 @@ public class EmployeeRepository {
                 dependents_count
             FROM
                 employees
+            ORDER BY
+                hire_date DESC
                 """;
 
-    private static String LOAD_SQL = FIND_ALL_SQL + "WHERE id = :id";
+    private static String LOAD_SQL = """
+            SELECT
+                id,
+                name,
+                image,
+                gender,
+                hire_date,
+                mail_address,
+                zip_code,
+                address,
+                telephone,
+                salary,
+                characteristics,
+                dependents_count
+            FROM
+                employees
+            WHERE
+                id = :id
+                    """;
 
     private static String UPDATE_SQL = """
             UPDATE
@@ -105,7 +125,7 @@ public class EmployeeRepository {
      */
     public void update(Employee employee) {
         SqlParameterSource params = new BeanPropertySqlParameterSource(employee);
-        template.update(FIND_ALL_SQL, params);
+        template.update(UPDATE_SQL, params);
     }
 
 }
