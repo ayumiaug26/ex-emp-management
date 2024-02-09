@@ -68,6 +68,13 @@ public class AdministratorController {
 
     }
 
+    /**
+     * ログインする.
+     * 
+     * @param form
+     * @param model
+     * @return
+     */
     @PostMapping("/login")
     public String login(LoginForm form, Model model) {
         Administrator admin = service.login(form.getMailAddress(), form.getPassword());
@@ -79,5 +86,16 @@ public class AdministratorController {
         session.setAttribute("administratorName", admin.getName());
 
         return "redirect:/employee/showList";
+    }
+
+    /**
+     * ログアウトする.
+     * 
+     * @return
+     */
+    @GetMapping("/logout")
+    public String logout(LoginForm form) {
+        session.invalidate();
+        return "redirect:/";
     }
 }
